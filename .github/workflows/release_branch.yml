@@ -30,9 +30,9 @@ jobs:
       - name: Run Tests
         if: matrix.job == 'test'
         run: npm run test
-  create-branch:
+  create_release_branch:
     runs-on: ubuntu-latest
-    needs: lint_and_test  # Зависимость от предыдущего job
+    needs: lint-and-test  # Зависимость от предыдущего job
     timeout-minutes: 10
 
     steps:
