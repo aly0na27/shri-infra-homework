@@ -20,5 +20,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script:
+            sudo groupadd docker
+            sudo usermod -aG docker ${USER}
+            echo ${{ secrets.YC_SA_JSON_CREDENTIALS  }} | docker login --username oauth --password-stdin cr.yandex
+            
             docker pull cr.yandex/${{secrets.YC_REGISTRY_ID}}/app:${{inputs.version}}_latest
-            docker run -d 3000:3000 cr.yandex/${{secrets.YC_REGISTRY_ID}}/app:${{inputs.version}}_latest
+            docker run -p 3000:3000 cr.yandex/${{secrets.YC_REGISTRY_ID}}/app:${{inputs.version}}_latest
