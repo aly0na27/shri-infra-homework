@@ -59,8 +59,8 @@ jobs:
       - name: Install Yandex Cloud CLI
         run: |
           curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
-          echo 'source /home/runner/.bashrc' >> $GITHUB_ENV
-
+        env:
+          PATH: ${{ runner.temp }}/yandex-cloud/bin:${{ env.PATH }}
       - name: Authenticate with Yandex Cloud
         env:
           YC_CLOUD_ID: ${{ secrets.CLOUD_ID }}
