@@ -19,6 +19,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          scripts:
+          script:
             docker pull cr.yandex/${{secrets.YC_REGISTRY_ID}}/app:${{inputs.version}}_latest
             docker run -d 3000:3000 cr.yandex/${{secrets.YC_REGISTRY_ID}}/app:${{inputs.version}}_latest
