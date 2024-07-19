@@ -1,0 +1,24 @@
+name: Deploy to Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Version of the release to deploy'
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: SSH and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          scripts:
+            docker pull cr.yandex/${{secrets.YC_REGISTRY_ID}}/app:${{inputs.version}}_latest
+            docker run -d 3000:3000 cr.yandex/${{secrets.YC_REGISTRY_ID}}/app:${{inputs.version}}_latest
