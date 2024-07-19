@@ -59,11 +59,8 @@ jobs:
       - name: Install Yandex Cloud CLI
         run: |
           curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
-          echo 'export PATH="$HOME/.yandex-cloud/bin:$PATH"' >> $HOME/.bashrc  # Adjust path as per Yandex Cloud CLI installation
-          echo 'export PATH="$HOME/.yandex-cloud/bin:$PATH"' >> $HOME/.zshrc   # Adjust path as per Yandex Cloud CLI installation
-          source $HOME/.bashrc  # Ensure .bashrc changes are applied
-          source $HOME/.zshrc   # Ensure .zshrc changes are applied
-
+        env:
+          PATH: ${{ runner.temp }}/yandex-cloud/bin:${{ env.PATH }}
       - name: Authenticate with Yandex Cloud
         env:
           YC_CLOUD_ID: ${{ secrets.CLOUD_ID }}
