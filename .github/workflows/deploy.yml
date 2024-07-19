@@ -19,7 +19,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script:
+          script: |
             sudo groupadd docker
             sudo usermod -aG docker ${USER}
             echo ${{ secrets.YC_SA_JSON_CREDENTIALS  }} | docker login --username oauth --password-stdin cr.yandex
