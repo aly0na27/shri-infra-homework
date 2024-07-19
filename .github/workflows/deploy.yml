@@ -24,4 +24,4 @@ jobs:
             echo ${{ secrets.OAUTH_TOKEN  }} | docker login --username oauth --password-stdin cr.yandex
             
             docker pull cr.yandex/${{secrets.YC_REGISTRY_ID}}/app:${{inputs.version}}_latest
-            docker run -p 3000:3000 cr.yandex/${{secrets.YC_REGISTRY_ID}}/app:${{inputs.version}}_latest
+            docker run -p 3000:3000 cr.yandex/${{secrets.YC_REGISTRY_ID}}/app:${{inputs.release_version}}_latest
