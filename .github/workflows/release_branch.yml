@@ -70,12 +70,8 @@ jobs:
           CR_REPOSITORY: node-docker-dev
           IMAGE_TAG: hehehehe
         run: |
-#          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
-#          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
           docker build -t cr.yandex/${{secrets.YC_REGISTRY_ID}}/app:${{ github.run_number }} .
           docker push cr.yandex/${{secrets.YC_REGISTRY_ID}}/app:${{ github.run_number }}
-
-
 
       - name: Create Docker image current
         run: |
