@@ -102,16 +102,18 @@ jobs:
         with:
           github-token: ${{ secrets.TOKEN_ISSUE }}
           script: |
-            var today = new Date();
-  
-            var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+           
+            const today = new Date();
+            const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
 
-            const issue_title = 'Создание релиза'
-            const issue_body = data.toString() + '\n' + 'Автор:' + '\n' + 'Номер версии:' + ' ' + ${github.run_number}
+            const issue_title = 'Создание релиза';
+            const issue_body = `\nАвтор:\nНомер версии: ${github.run_number}`;
+
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: issue_title,
               body: issue_body,
             });
+
             core.setOutput('issue_number', issue.data.number);
