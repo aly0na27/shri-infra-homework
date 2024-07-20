@@ -91,3 +91,28 @@ jobs:
           git config --global user.email 'github-actions@github.com'
           git tag -a v${{ github.run_number }} -m "Release version ${{ github.run_number }}"
           git push origin v${{ github.run_number }}
+
+  create-issue:
+    runs-on: ubuntu-latest
+    needs: create_git_tag
+
+    steps:
+      - name: Create GitHub Issue
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.TOKEN_ISSUE }}
+          script: |
+            var today = new Date();
+  
+            var date = today.getFullYear()+’-’+(today.getMonth()+1)+’-’+today.getDate();
+
+#            const { issue_title, issue_body } = context.payload.inputs;
+            const issue_title = 'Создание релиза'
+            const issue_body = data.toString() + '\n' + 'Автор:' + '\n' + 'Номер версии:' + ' '
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: issue_title,
+              body: issue_body,
+            });
+            core.setOutput('issue_number', issue.data.number);
