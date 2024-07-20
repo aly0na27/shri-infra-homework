@@ -104,10 +104,10 @@ jobs:
           script: |
             var today = new Date();
   
-            var date = today.getFullYear()+’-’+(today.getMonth()+1)+’-’+today.getDate();
+            var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
             const issue_title = 'Создание релиза'
-            const issue_body = data.toString() + '\n' + 'Автор:' + '\n' + 'Номер версии:' + ' '
+            const issue_body = data.toString() + '\n' + 'Автор:' + '\n' + 'Номер версии:' + ' ' + ${github.run_number}
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
