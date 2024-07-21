@@ -107,7 +107,7 @@ jobs:
             const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
 
             const issue_title = 'Создание релиза';
-            const issue_body = `\nАвтор:\nНомер версии: ${github.run_number}`;
+            const issue_body = `\nАвтор:\nНомер версии: ${github.run_number}\nДата: ${date}`;
 
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
